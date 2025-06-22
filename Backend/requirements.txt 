@@ -1,0 +1,8 @@
+flask==2.3.2
+flask-cors==4.0.0
+werkzeug==2.3.7
+pillow==9.5.0
+pytesseract==0.3.10
+onnxruntime==1.15.1
+numpy==1.26.4
+rapidfuzz==3.6.2
