@@ -80,7 +80,8 @@ async function runAllChecks(event) {
     const result = await response.json();
     console.log('Parsed result:', result);
     let html = '';
-    html += `<pre style='background:#f4f4f4;padding:8px;border-radius:4px;'>${JSON.stringify(result, null, 2)}</pre>`;
+    // Only show the JSON for debugging if you want, or comment this out:
+    // html += `<pre style='background:#f4f4f4;padding:8px;border-radius:4px;'>${JSON.stringify(result, null, 2)}</pre>`;
     if (result.user_brand_check) {
       html += `<p><b>User Brand:</b> <span class="${result.user_brand_check.is_counterfeit ? 'high-risk' : 'low-risk'}">${result.user_brand_check.is_counterfeit ? 'Suspicious' : 'Genuine'} (Closest: ${result.user_brand_check.closest_brand}, Score: ${result.user_brand_check.similarity_score})</span></p>`;
     }
@@ -88,12 +89,8 @@ async function runAllChecks(event) {
       html += `<p><b>Detected from Image:</b> <span class="${result.ocr_brand_check.is_counterfeit ? 'high-risk' : 'low-risk'}">${result.ocr_brand_check.is_counterfeit ? 'Suspicious' : 'Genuine'} (Closest: ${result.ocr_brand_check.closest_brand}, Score: ${result.ocr_brand_check.similarity_score})</span></p>`;
       html += `<p style='font-size:0.95em;color:#0071ce;'>Extracted text: <b>${result.ocr_brand_check.extracted_text || '(no text found)'}</b></p>`;
     }
-    if (!result.user_brand_check && !result.ocr_brand_check) {
-      if (result.logo_check && result.logo_check.predicted_logo && result.logo_check.predicted_logo !== 'unknown') {
-        html += `<p><b>Logo Classifier:</b> <span class="${result.logo_check.confidence > 0.5 ? 'low-risk' : 'high-risk'}">${result.logo_check.predicted_logo} (Confidence: ${(result.logo_check.confidence * 100).toFixed(1)}%)</span></p>`;
-      } else {
-        html += `<p style='color:#d7263d;'>No brand detected from image. Please enter a brand name or upload a clearer image.</p>`;
-      }
+    if (result.logo_check && result.logo_check.predicted_logo && result.logo_check.predicted_logo !== 'unknown') {
+      html += `<p><b>Logo Classifier:</b> <span class="${result.logo_check.confidence > 0.5 ? 'low-risk' : 'high-risk'}">${result.logo_check.predicted_logo} (Confidence: ${(result.logo_check.confidence * 100).toFixed(1)}%)</span></p>`;
     }
     if (result.image_check) {
       html += `<p>Image: <span class="${result.image_check.risk === 'high' ? 'high-risk' : 'low-risk'}">${result.image_check.risk} risk</span> (${result.image_check.reason})</p>`;

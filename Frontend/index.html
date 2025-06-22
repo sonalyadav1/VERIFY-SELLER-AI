@@ -7,15 +7,15 @@
 <body>
   <div class="container">
     <h1>List a New Product</h1>
-    <div id="fraud-form">
+    <form id="fraud-form">
       <input type="file" id="product-image" accept="image/*"><br>
       <input type="text" id="brand-name" placeholder="Enter brand name"><br>
       <input type="number" id="product-price" placeholder="Enter price"><br>
       <input type="text" id="seller-address" placeholder="Seller address"><br>
       <input type="number" id="account-age" placeholder="Account age (days)"><br>
       <input type="number" id="listing-volume" placeholder="Listings in last 7 days"><br>
-      <button type="button" id="run-fraud-btn">Run Fraud Checks</button>
-    </div>
+      <button type="submit" id="run-fraud-btn">Run Fraud Checks</button>
+    </form>
     <div id="all-results"></div>
     <div id="result">
       <p>Risk: <span id="risk-score">Pending...</span></p>
