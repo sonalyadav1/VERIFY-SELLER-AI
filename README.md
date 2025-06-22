@@ -44,7 +44,7 @@ Frontend/
 ### 1. Clone the Repository
 
 ```sh
-git clone <https://github.com/sonalyadav1/VERIFY-SELLER-AI.git>
+git clone https://github.com/sonalyadav1/VERIFY-SELLER-AI.git
 cd VERIFY-SELLER-AI
 ```
 
